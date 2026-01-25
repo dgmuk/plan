@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ODA PRO: Body Balance System</title>
-
-    <!-- Tailwind CSS -->
+    <title>Готовый план похудения на 5 кг за месяц</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,1077 +11,684 @@
                 extend: {
                     colors: {
                         gray: {
-                            900: '#111827',
-                            800: '#1F2937',
-                            700: '#374151',
-                            400: '#9CA3AF',
-                            300: '#D1D5DB',
-                            100: '#F3F4F6',
+                            900: '#111827', // Глубокий серый (фон)
+                            800: '#1F2937', // Графитовый (карточки)
+                            700: '#374151', // Стальной (рамки)
+                            300: '#D1D5DB', // Светло-серый (текст)
                         },
                         orange: {
-                            500: '#F97316',
-                            600: '#EA580C',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                        'slide-up': 'slideUp 0.3s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                            500: '#F97316', // Фирменный оранжевый
+                            600: '#EA580C', // Темно-оранжевый
                         },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        green: {
+                            500: '#22C55E', // Успех
+                        },
+                        red: {
+                            600: '#DC2626', // Опасно
+                        },
+                        teal: {
+                            500: '#14B8A6', // Бирюзовый
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-    <!-- Babel -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <style>
-        @media print {
-            body {
-                background-color: white !important;
-                color: black !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-
-            .print-only {
-                display: block !important;
-            }
-
-            .bg-gray-800,
-            .bg-gray-900 {
-                background-color: white !important;
-                border: 1px solid #ccc !important;
-                color: black !important;
-            }
-
-            .text-white,
-            .text-gray-100,
-            .text-gray-300,
-            .text-gray-400 {
-                color: black !important;
-            }
-
-            .grid {
-                display: block !important;
-            }
-
-            .card {
-                page-break-inside: avoid;
-                margin-bottom: 20px;
-                border: 1px solid #eee;
-            }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Custom Scrollbar for dark theme */
+        /* Custom scrollbar for dark theme */
         ::-webkit-scrollbar {
             width: 8px;
         }
-
         ::-webkit-scrollbar-track {
-            background: #111827;
+            background: #111827; 
         }
-
         ::-webkit-scrollbar-thumb {
-            background: #374151;
+            background: #374151; 
             border-radius: 4px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
-            background: #4B5563;
+            background: #4B5563; 
+        }
+
+        /* Hide scrollbar for slider but allow scrolling */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Класс для интерактивных блоков */
+        .interactive-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #374151; /* border-gray-700 */
+        }
+        
+        .interactive-card:hover {
+            transform: scale(1.02);
+            border-color: #14B8A6; /* border-teal-500 */
+            box-shadow: 0 10px 30px -10px rgba(20, 184, 166, 0.2);
+        }
+
+        /* Классы для анимации появления при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Анимация парения для значка */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
+<body class="bg-gray-900 text-gray-300 antialiased leading-relaxed overflow-x-hidden">
 
-<body class="bg-gray-900 text-gray-100 min-h-screen font-sans antialiased selection:bg-orange-500 selection:text-white">
-    <div id="root"></div>
+    <!-- БЛОК 1: Шапка (Hero) -->
+    <header class="relative overflow-hidden bg-gray-800 border-b border-gray-700">
+        <div class="max-w-3xl mx-auto px-4 py-12 sm:py-20 text-center reveal">
+            <span class="animate-float inline-block py-1 px-3 rounded-full bg-gray-700 text-orange-500 text-xs font-bold tracking-wide mb-4">РУКОВОДСТВО</span>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
+                УЗНАЙ КАК ПОХУДЕТЬ НА <span class="text-orange-500">3-5 КГ</span> ВСЕГО ЗА 1 МЕСЯЦ, УБРАТЬ ЖИВОТ И БОКА НАВСЕГДА
+            </h1>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                Приятного чтения, а перед этим — проверь свою подписку на мой Телеграмм канал! В нем я делюсь важными советами по снижению веса и достижению желаемой формы.
+            </p>
+            <a href="https://t.me/BodyBal" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition-colors shadow-lg transform hover:-translate-y-1">
+                👉 Телеграмм канал!
+            </a>
+        </div>
+    </header>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+    <main class="max-w-3xl mx-auto px-4 py-10 space-y-12">
 
-        // --- DATA: Exercise Library ---
-        const exerciseLibrary = {
-            // SMR (Inhibit)
-            smr_upper_trap: {
-                name: "МФР: Верхняя трапеция",
-                desc: "Расслабление верхней части трапециевидной мышцы с использованием массажного мяча.",
-                steps: [
-                    "Встаньте у стены, поместите мяч между стеной и верхней частью трапеции (не на позвоночник).",
-                    "Надавите на мяч и медленно прокатывайте его, находя триггерные точки.",
-                    "Задержитесь на болезненной точке на 30-60 секунд.",
-                    "Выполняйте медленные движения рукой (подъем, отведение) для усиления эффекта."
-                ]
-            },
-            smr_pecs: {
-                name: "МФР: Грудные мышцы",
-                desc: "Релиз малой и большой грудных мышц для устранения сутулости.",
-                steps: [
-                    "Встаньте лицом к стене, поместите мяч в область грудной мышцы (ближе к плечу).",
-                    "Надавите весом тела на мяч.",
-                    "Медленно прокатывайте зону, избегая молочных желез.",
-                    "Найдя точку напряжения, задержитесь и сделайте несколько глубоких вдохов."
-                ]
-            },
-            smr_lats: {
-                name: "МФР: Широчайшие мышцы",
-                desc: "Снятие напряжения с широчайших мышц спины.",
-                steps: [
-                    "Лягте на бок, поместите ролл под подмышечную впадину.",
-                    "Медленно прокатывайте ролл вниз до середины ребер и обратно.",
-                    "Разверните корпус немного назад, чтобы проработать заднюю часть.",
-                    "Задержитесь на болевых точках."
-                ]
-            },
-            smr_psoas: {
-                name: "МФР: Подвздошно-поясничная мышца",
-                desc: "Глубокий релиз сгибателей бедра.",
-                steps: [
-                    "Лягте на живот, поместите массажный мяч (или kettlebell) в область паха/низа живота.",
-                    "Осторожно перенесите вес на мяч.",
-                    "Дышите глубоко животом, позволяя мячу проникнуть глубже.",
-                    "Избегайте пульсации (артерий)."
-                ]
-            },
-            smr_quads: {
-                name: "МФР: Квадрицепс",
-                desc: "Прокатка передней поверхности бедра.",
-                steps: [
-                    "Лягте на живот, поместите ролл под бедра.",
-                    "Опираясь на предплечья, прокатывайте от таза до колена.",
-                    "Для усиления давления можно положить одну ногу на другую.",
-                    "На болевой точке согните и разогните колено несколько раз."
-                ]
-            },
-            smr_tfl: {
-                name: "МФР: Напрягатель широкой фасции (TFL)",
-                desc: "Релиз внешней части бедра (карман джинс).",
-                steps: [
-                    "Лягте на бок, поместите ролл или мяч чуть ниже тазовой кости сбоку.",
-                    "Найдите болезненную точку (мышца небольшая).",
-                    "Задержитесь на 30-60 секунд.",
-                    "Двигайтесь очень медленно, амплитуда небольшая."
-                ]
-            },
-            smr_calves: {
-                name: "МФР: Икроножные мышцы",
-                desc: "Расслабление голени.",
-                steps: [
-                    "Сидя на полу, положите ролл под икры.",
-                    "Опираясь на руки, приподнимите таз и прокатывайте голень.",
-                    "Поворачивайте ногу внутрь и наружу для проработки всех пучков.",
-                    "Для давления положите ногу на ногу."
-                ]
-            },
-            smr_adductors: {
-                name: "МФР: Приводящие мышцы",
-                desc: "Релиз внутренней поверхности бедра.",
-                steps: [
-                    "Лягте на живот, отведите одну ногу в сторону и согните в колене.",
-                    "Положите ролл под внутреннюю часть бедра.",
-                    "Прокатывайте от колена к паху.",
-                    "Будьте осторожны ближе к паховой области."
-                ]
-            },
+        <!-- БЛОК 2: Введение -->
+        <section class="space-y-4 reveal">
+            <p class="text-lg px-2">
+                В этой статье ты получишь пошаговый <span class="text-white font-bold">ПЛАН ДЕЙСТВИЙ</span> и <span class="text-white font-bold">ПРАКТИЧЕСКИЕ РЕКОМЕНДАЦИИ</span>. С их помощью ты сможешь:
+            </p>
+            <!-- Интерактивный блок -->
+            <ul class="interactive-card space-y-3 bg-gray-800 p-6 rounded-2xl shadow-sm">
+                <li class="flex items-start">
+                    <svg class="w-6 h-6 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Убрать живот и бока;</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="w-6 h-6 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Улучшить самочувствие и продуктивность;</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="w-6 h-6 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Носить одежду, которая нравится, а не ту, которая подошла.</span>
+                </li>
+            </ul>
+            <p class="px-2">При этом не придется мучать себя изнурительными тренировками и сидеть на изматывающих диетах. Теперь перейдем к делу..</p>
+        </section>
 
-            // Stretch (Lengthen)
-            stretch_neck_side: {
-                name: "Растяжка шеи (Боковая)",
-                desc: "Удлинение верхней трапеции и лестничных мышц.",
-                steps: [
-                    "Сидя или стоя, опустите одно плечо вниз (можно держаться за стул).",
-                    "Мягко наклоните голову в противоположную сторону.",
-                    "Положите руку на голову для легкого давления (не тяните сильно).",
-                    "Удерживайте 30-45 секунд."
-                ]
-            },
-            stretch_doorway_pec: {
-                name: "Растяжка грудных в проеме",
-                desc: "Раскрытие грудного отдела.",
-                steps: [
-                    "Встаньте в дверном проеме, упритесь предплечьями в косяки (локти на уровне плеч или чуть выше).",
-                    "Сделайте шаг вперед одной ногой, оставляя руки на месте.",
-                    "Почувствуйте растяжение в груди.",
-                    "Держите спину ровно, не прогибайтесь в пояснице."
-                ]
-            },
-            stretch_lats: {
-                name: "Растяжка широчайших (Prayer Stretch)",
-                desc: "Удлинение спины.",
-                steps: [
-                    "Встаньте на колени перед опорой (стул, диван, фитбол).",
-                    "Положите руки на опору и опустите корпус вниз, проваливаясь грудью к полу.",
-                    "Тянитесь тазом назад к пяткам.",
-                    "Удерживайте 30-60 секунд."
-                ]
-            },
-            stretch_hip_flexor: {
-                name: "Растяжка сгибателей бедра",
-                desc: "Растяжка подвздошно-поясничной мышцы.",
-                steps: [
-                    "Встаньте на одно колено (подложите мягкое).",
-                    "Подкрутите таз на себя (уберите прогиб в пояснице).",
-                    "Слегка подайтесь корпусом вперед, сохраняя таз подкрученным.",
-                    "Поднимите руку со стороны задней ноги вверх и наклонитесь в противоположную сторону."
-                ]
-            },
-            stretch_quad_stand: {
-                name: "Растяжка квадрицепса стоя",
-                desc: "Удлинение передней поверхности бедра.",
-                steps: [
-                    "Стоя, согните одну ногу в колене и захватите стопу рукой.",
-                    "Прижмите пятку к ягодице.",
-                    "Колено направлено строго вниз, таз подкручен.",
-                    "Не прогибайтесь в пояснице."
-                ]
-            },
-            stretch_calf_wall: {
-                name: "Растяжка икры у стены",
-                desc: "Удлинение икроножной мышцы.",
-                steps: [
-                    "Упритесь руками в стену.",
-                    "Отставьте одну ногу назад, пятка прижата к полу, нога прямая.",
-                    "Подайтесь тазом вперед, не отрывая пятку.",
-                    "Почувствуйте натяжение в голени."
-                ]
-            },
-            stretch_adductor_stand: {
-                name: "Растяжка приводящих стоя",
-                desc: "Удлинение внутренней поверхности бедра.",
-                steps: [
-                    "Широкая постановка ног.",
-                    "Перенесите вес на одну ногу, сгибая ее в колене.",
-                    "Вторая нога прямая.",
-                    "Держите спину ровно, таз назад."
-                ]
-            },
+        <!-- БЛОК 3: Агитация -->
+        <section class="interactive-card bg-gray-800 rounded-2xl p-6 border-l-4 border-orange-500 reveal">
+            <p class="text-lg font-medium text-white italic mb-6">
+                "Скажи, как тебе идея: Всего за месяц избавиться от 5 кг жира, следуя проверенной схеме? При этом сохранить мышечную массу, повысить силовые и выносливость! Шаг за шагом, ты сможешь сделать результат. Мысль неплохая, ВЕРНО?"
+            </p>
+            <h3 class="text-xl font-bold text-white mb-4">Еще из этой статьи ты узнаешь:</h3>
+            <ul class="space-y-2 mb-6">
+                <li class="flex items-start gap-2">
+                    <span class="text-teal-500 font-bold">✔️</span>
+                    Как легко самому рассчитать свою норму по питанию и начать худеть на любимых продуктах;
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-teal-500 font-bold">✔️</span>
+                    Как правильно построить свои тренировки, чтобы уходил жир и оставались мышцы;
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-teal-500 font-bold">✔️</span>
+                    Пример реальной тренировки (видео);
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-teal-500 font-bold">✔️</span>
+                    Рабочую схему приемы БАДов для мощного сжигания жира.
+                </li>
+            </ul>
+            <div class="bg-gray-900/50 p-4 rounded-lg border border-teal-500/30">
+                <p class="font-bold text-teal-400">💡 И главное: Как все это соединить в систему, чтобы уже через месяц похудеть на 5 кг.</p>
+            </div>
+        </section>
 
-            // Activate (Isolation)
-            act_chin_tuck: {
-                name: "Ретракция шеи (Chin Tucks)",
-                desc: "Активация глубоких сгибателей шеи.",
-                steps: [
-                    "Стоя или сидя, смотрите прямо перед собой.",
-                    "Движением 'задвиньте' подбородок назад, создавая 'двойной подбородок'.",
-                    "Не наклоняйте голову вниз или вверх.",
-                    "Удерживайте 2-3 секунды, повторите 10-15 раз."
-                ]
-            },
-            act_ytw: {
-                name: "Упражнение Y-T-W",
-                desc: "Активация нижней трапеции и ромбовидных мышц.",
-                steps: [
-                    "Лягте на живот на пол или наклонную скамью.",
-                    "Поднимите руки в форме буквы Y (большие пальцы вверх).",
-                    "Затем разведите в стороны (T).",
-                    "Затем согните локти и сведите лопатки (W).",
-                    "Держите лопатки сведенными в каждой позиции."
-                ]
-            },
-            act_glute_bridge: {
-                name: "Ягодичный мост",
-                desc: "Изолированная работа ягодиц.",
-                steps: [
-                    "Лягте на спину, ноги согнуты, стопы на полу.",
-                    "Поднимите таз вверх, сжимая ягодицы.",
-                    "В верхней точке тело образует прямую линию.",
-                    "Не переразгибайте поясницу. Опуститесь вниз."
-                ]
-            },
-            act_plank_rkc: {
-                name: "Планка RKC",
-                desc: "Активная планка с максимальным напряжением.",
-                steps: [
-                    "Встаньте в планку на предплечьях.",
-                    "Сильно сожмите кулаки, напрягите пресс, ягодицы и квадрицепсы.",
-                    "Тяните локти к носкам, а носки к локтям (создавая изометрическое напряжение).",
-                    "Держите 10-20 секунд максимального напряжения."
-                ]
-            },
-            act_clamshell: {
-                name: "Ракушка (Clamshells)",
-                desc: "Активация средней ягодичной мышцы.",
-                steps: [
-                    "Лягте на бок, ноги согнуты под 90 градусов.",
-                    "Не разворачивая таз, поднимите колено верхней ноги вверх.",
-                    "Стопы остаются прижатыми друг к другу.",
-                    "Почувствуйте жжение в боковой части ягодицы."
-                ]
-            },
-            act_tibialis: {
-                name: "Подъем носков (Tibialis Raise)",
-                desc: "Укрепление передней большеберцовой мышцы.",
-                steps: [
-                    "Встаньте спиной к стене, отступив ногами на полшага.",
-                    "Опираясь спиной о стену, поднимайте носки на себя.",
-                    "Плавно опускайте.",
-                    "Повторяйте до утомления."
-                ]
-            },
+        <!-- БЛОК 4: Авторитет (Кейсы / Слайдер) -->
+        <section class="space-y-6 reveal">
+            <h3 class="text-2xl font-bold text-white px-2">Почему стоит доверять моим советам?</h3>
+            <p class="px-2">
+                За годы работы я помог десяткам клиентов сбросить вес, улучшить фигуру и, что самое важное, сохранить полученные результаты. Мои подопечные добивались целей благодаря научному подходу к тренировкам и питанию, который я разработал на основе своего опыта и глубоких знаний.
+            </p>
+            <p class="font-semibold text-white px-2">Вот лишь несколько примеров результатов подопечных:</p>
+            
+            <!-- Слайдер кейсов -->
+            <div class="relative group">
+                <!-- Кнопка Влево -->
+                <button onclick="scrollCases(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-orange-500 text-white p-2 rounded-full shadow-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -ml-2 sm:-ml-4 border border-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
 
-            // Integrate (Functional)
-            int_single_arm_row: {
-                name: "Тяга одной рукой в наклоне",
-                desc: "Интеграция спины и кора.",
-                steps: [
-                    "Возьмите гантель или резину.",
-                    "Встаньте в выпад или наклон.",
-                    "Тяните снаряд к поясу, сводя лопатку.",
-                    "Корпус держите стабильно, не скручивайтесь."
-                ]
-            },
-            int_squat_row: {
-                name: "Присед с тягой",
-                desc: "Функциональное объединение низа и верха.",
-                steps: [
-                    "Используйте резиновый эспандер, закрепленный перед вами.",
-                    "Выполните присед, выпрямляя руки вперед.",
-                    "Вставая, выполните тягу руками к поясу.",
-                    "Движение должно быть слитным."
-                ]
-            },
-            int_lunge_rot: {
-                name: "Выпад с ротацией",
-                desc: "Стабилизация и мобильность.",
-                steps: [
-                    "Сделайте шаг назад в выпад.",
-                    "В нижней точке поверните корпус в сторону передней ноги.",
-                    "Вернитесь в центр и встаньте.",
-                    "Держите равновесие."
-                ]
-            },
-            int_single_leg_balance: {
-                name: "Баланс на одной ноге",
-                desc: "Тренировка проприоцепции и стабилизаторов.",
-                steps: [
-                    "Встаньте на одну ногу, колено чуть мягкое.",
-                    "Держите баланс 30-60 секунд.",
-                    "Усложнение: закройте глаза или вращайте головой.",
-                    "Следите, чтобы колено не заваливалось внутрь."
-                ]
-            },
-            int_multi_lunge: {
-                name: "Мульти-плоскостные выпады",
-                desc: "Работа во всех плоскостях.",
-                steps: [
-                    "Выполняйте выпады: вперед, в сторону, назад.",
-                    "Следите за соосностью колена и стопы.",
-                    "Держите спину прямой."
-                ]
-            }
-        };
-
-        // --- COMPONENTS ---
-
-        const Modal = ({ isOpen, onClose, title, children }) => {
-            if (!isOpen) return null;
-            return (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in" onClick={onClose}>
-                    <div className="bg-gray-800 rounded-xl border border-gray-700 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-slide-up" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-center p-6 border-b border-gray-700 sticky top-0 bg-gray-800 z-10">
-                            <h3 className="text-xl font-bold text-white">{title}</h3>
-                            <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
-                                <i className="fa-solid fa-xmark text-2xl"></i>
-                            </button>
-                        </div>
-                        <div className="p-6">
-                            {children}
-                        </div>
+                <!-- Контейнер слайдера -->
+                <div id="casesSlider" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide space-x-4 p-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+                    
+                    <!-- Слайд 1 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                        <img src="https://i.postimg.cc/Y0FTPfx4/gotovoe-kopia.jpg" alt="Результат 1" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                        <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">- 30 кг за 1 год</span>
                     </div>
-                </div>
-            );
-        };
 
-        const TestInfoContent = ({ howTo, whatToLookFor, onClose }) => (
-            <div className="space-y-4">
-                <div>
-                    <h4 className="text-orange-500 font-bold mb-2 uppercase text-sm">Как выполнять тест:</h4>
-                    <p className="text-gray-300 leading-relaxed">{howTo}</p>
-                </div>
-                <div className="bg-gray-700/50 p-4 rounded-lg border border-gray-600">
-                    <h4 className="text-teal-400 font-bold mb-2 uppercase text-sm flex items-center">
-                        <i className="fa-solid fa-magnifying-glass mr-2"></i> На что смотреть:
-                    </h4>
-                    <p className="text-gray-200 leading-relaxed">{whatToLookFor}</p>
-                </div>
-                <div className="flex justify-end mt-6">
-                    <button onClick={onClose} className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-lg shadow-orange-500/20">
-                        Закрыть
-                    </button>
-                </div>
-            </div>
-        );
+                    <!-- Слайд 2 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/ydyZy2MZ/do-posle-1.jpg" alt="Результат 2" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">- 15 кг за 5 месяцев</span>
+                    </div>
 
-        const CheckboxGroup = ({ title, items, values, onChange, onInfoClick }) => (
-            <div className="mb-6 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
-                <h4 className="text-orange-500 font-semibold mb-3 uppercase text-sm tracking-wider">{title}</h4>
-                <div className="space-y-3">
-                    {items.map(item => (
-                        <div key={item.id} className="flex items-center justify-between group">
-                            <label className="flex items-center space-x-3 cursor-pointer flex-grow">
-                                <div className={`w-6 h-6 rounded border flex items-center justify-center transition-all ${values[item.id] ? 'bg-orange-500 border-orange-500' : 'border-gray-600 bg-gray-900 group-hover:border-orange-500/50'}`}>
-                                    {values[item.id] && <i className="fa-solid fa-check text-white text-sm"></i>}
-                                </div>
-                                <input
-                                    type="checkbox"
-                                    className="hidden"
-                                    checked={!!values[item.id]}
-                                    onChange={() => onChange(item.id)}
-                                />
-                                <span className="text-gray-300 group-hover:text-white transition-colors">{item.label}</span>
-                            </label>
-                            {onInfoClick && (
-                                <button
-                                    onClick={() => onInfoClick(item)}
-                                    className="text-gray-500 hover:text-orange-400 transition-colors ml-2 p-1"
-                                >
-                                    <i className="fa-regular fa-circle-question"></i>
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
+                    <!-- Слайд 3 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/nLkFRZLV/gotovoe-kopia.jpg" alt="Результат 3" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">Ушел живот</span>
+                    </div>
 
-        // --- STEPS ---
+                    <!-- Слайд 4 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/X7SvYsmP/Peredel.jpg" alt="Результат 4" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">рельеф и мышцы</span>
+                    </div>
 
-        const StepIntro = ({ onStart }) => (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center animate-fade-in">
-                <div className="mb-8 relative">
-                    <div className="absolute -inset-4 bg-orange-500/20 blur-xl rounded-full"></div>
-                    <i className="fa-solid fa-person-rays text-6xl text-orange-500 relative z-10"></i>
+                    <!-- Слайд 5 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/j5HFQdqn/gotovoe-kopia.jpg" alt="Результат 5" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">-4 кг без голода</span>
+                    </div>
+
+                    <!-- Слайд 6 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/tJz8yRLX/gotovoe.jpg" alt="Результат 6" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">Подготовка к лету</span>
+                    </div>
+
+                    <!-- Слайд 7 -->
+                    <div class="flex-shrink-0 w-72 sm:w-80 snap-center interactive-card aspect-[4/5] bg-gray-800 rounded-2xl flex items-center justify-center relative overflow-hidden">
+                         <img src="https://i.postimg.cc/2jX49Nq3/gotovoe.jpg" alt="Результат 7" class="object-contain w-full h-full opacity-80 hover:opacity-100 transition-opacity">
+                         <span class="absolute bottom-4 left-4 bg-gray-900/80 px-3 py-1 rounded-full text-xs font-bold text-teal-500 border border-teal-500/30">Восстановление</span>
+                    </div>
+
                 </div>
-                <h1 className="text-5xl font-bold mb-2 text-white tracking-tight">
-                    ODA <span className="text-orange-500">PRO</span>
-                </h1>
-                <p className="text-xl text-gray-400 mb-10 font-light tracking-wide">Body Balance System</p>
-                <button
-                    onClick={onStart}
-                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-12 rounded-full shadow-lg shadow-orange-500/20 transition-all transform hover:scale-105 active:scale-95 text-lg"
-                >
-                    Начать диагностику
+
+                <!-- Кнопка Вправо -->
+                <button onclick="scrollCases(1)" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-orange-500 text-white p-2 rounded-full shadow-lg backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 -mr-2 sm:-mr-4 border border-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
-        );
+            
+            <p class="text-center text-sm text-gray-400">Все они добились успеха, вы также можете, читайте статью далее 🧾</p>
+        </section>
 
-        const StepSafety = ({ onNext }) => {
-            const [checks, setChecks] = useState({
-                pain: false,
-                trauma: false,
-                numbness: false
+        <!-- БЛОК 5: Подводка (Мифы) -->
+        <section class="space-y-4 reveal">
+            <p class="px-2">Итак, с чего начинается твой путь к потере веса?</p>
+            <div class="space-y-2 px-2">
+                <p class="flex items-center text-white"><span class="text-red-600 mr-2 text-xl font-bold">❌</span> Нет, это не с попытки срочно сесть на жёсткую диету.</p>
+                <p class="flex items-center text-white"><span class="text-red-600 mr-2 text-xl font-bold">❌</span> И не с покупки самых модных БАДов или фитнес-гаджетов.</p>
+                <p class="flex items-center text-white"><span class="text-red-600 mr-2 text-xl font-bold">❌</span> И даже не с мысли «я начну бегать каждое утро и похудею».</p>
+            </div>
+            <p class="px-2">Забудь о случайных решениях – у процесса похудения есть своя чёткая и логичная система.</p>
+            <div class="interactive-card bg-gray-800 p-6 rounded-2xl border-l-4 border-teal-500">
+                <p><strong>💡 Аналогия:</strong> Ты ведь не придумываешь новые способы делать приседания или тяги, правда? Ты следуешь проверенной технике. Точно так же и с похудением – здесь тоже есть «правильная техника», которой я сейчас с тобой поделюсь.</p>
+            </div>
+        </section>
+
+        <!-- БЛОК 6: ШАГ 1 - Цель -->
+        <section id="step1" class="interactive-card bg-gray-800 rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">1 ШАГ - ПОСТАНОВКА ЦЕЛИ</h2>
+                <span class="text-4xl">🎯</span>
+            </div>
+            <h3 class="text-lg text-teal-400 mb-4 font-semibold">☑️ Четкая и адекватная постановка цели</h3>
+            <p class="mb-4">
+                Первое, с чего начинается любое изменение, – это правильная постановка цели. Задача – не просто сбросить 5 кг, а понять, зачем тебе это нужно. Цель должна быть конкретной, измеримой и реалистичной.
+            </p>
+            <p class="mb-4 bg-gray-900/60 p-4 rounded-lg text-white border border-gray-700">
+                💡 Например, «снизить вес на 5 кг за 4 недели, улучшив качество тела и сохранив мышечную массу».
+            </p>
+            <p>Важно определить, какие результаты ты хочешь увидеть:</p>
+            <ul class="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-300">
+                <li>✅ Улучшение самочувствия;</li>
+                <li>✅ Уменьшение объема талии или живота;</li>
+                <li>✅ Подготовка к какому-то важному событию.</li>
+            </ul>
+        </section>
+
+        <!-- БЛОК 7: ШАГ 2 - Точка А -->
+        <section id="step2" class="interactive-card bg-gray-800 rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">2 ШАГ - ФИКСИРУЕМ ТОЧКУ А</h2>
+                <span class="text-4xl">📏</span>
+            </div>
+            <p class="mb-6">
+                💡 Очень важно провести детальные замеры тела. Они станут твоим ориентиром для отслеживания прогресса.
+            </p>
+            
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="bg-gray-900/60 p-6 rounded-xl border border-gray-700 hover:border-teal-500 transition-colors">
+                    <h4 class="font-bold text-white mb-2">1. Замеры окружностей</h4>
+                    <p class="text-sm mb-4">Сними основные мерки — обхват талии, бедер, груди, рук и ног.</p>
+                    <a href="https://sites.google.com/view/rezinki/" class="text-orange-500 font-bold hover:underline">👉 Инструкции по замерам ЗДЕСЬ</a>
+                    <p class="text-xs text-gray-500 mt-2">Делай раз в 1-2 недели.</p>
+                </div>
+                <div class="bg-gray-900/60 p-6 rounded-xl border border-gray-700 hover:border-teal-500 transition-colors">
+                    <h4 class="font-bold text-white mb-2">2. Фото прогресса</h4>
+                    <p class="text-sm mb-4">Три ракурса: спереди, сзади, сбоку. Одинаковый свет и одежда.</p>
+                    <p class="text-xs text-gray-500">Повторяй снимки каждые 2-3 недели.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 8: ШАГ 3 - Питание (Теория) -->
+        <section id="step3" class="interactive-card bg-gray-800 rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">3 ШАГ - РАСЧЕТЫ ПО ПИТАНИЮ</h2>
+                <span class="text-4xl">🥗</span>
+            </div>
+            <p class="mb-6">
+                После сбора данных важно составить план питания для дефицита калорий. Действуй по следующим шагам ⬇️
+            </p>
+            
+            <div class="space-y-4">
+                <div class="flex gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-white">1</div>
+                    <div>
+                        <h4 class="text-white font-bold">Определи калорийность поддержки</h4>
+                        <p class="text-sm">В течение 7 дней записывай всё, что съедаешь. Среднее значение за неделю (если вес не менялся) = твоя поддержка.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center font-bold text-white">2</div>
+                    <div>
+                        <h4 class="text-white font-bold">Установи дефицит</h4>
+                        <p class="text-sm">Уменьши калорийность поддержки на <span class="text-orange-500 font-bold">20%</span>.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center font-bold text-white">3</div>
+                    <div>
+                        <h4 class="text-white font-bold">Рассчитай БЖУ</h4>
+                        <ul class="text-sm space-y-2 mt-2 bg-gray-900/60 p-4 rounded border border-gray-700">
+                            <li>🥩 <strong>Белки:</strong> Вес × 1.8 г</li>
+                            <li>🥑 <strong>Жиры:</strong> Вес × 0.8 г</li>
+                            <li>🍚 <strong>Углеводы:</strong> Остаток калорий / 4</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 9: Инструмент (Калькулятор) -->
+        <section class="interactive-card bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 md:p-8 shadow-xl reveal">
+            <h3 class="text-2xl font-bold text-white mb-2">🧮 Калькулятор КБЖУ</h3>
+            <p class="mb-6 text-sm">Не хотите считать вручную? Занесите данные и получите расчет.</p>
+            
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Ваш вес (кг)</label>
+                        <input type="number" id="calcWeight" placeholder="Например: 80" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Калории поддержки (за 7 дней)</label>
+                        <input type="number" id="calcMaintenance" placeholder="Например: 2500" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors">
+                        <p class="text-xs text-gray-500 mt-1">Если не знаете, введите примерный вес × 33</p>
+                    </div>
+                    <button onclick="calculateMacros()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all shadow-lg hover:shadow-orange-500/30 mt-2 transform active:scale-95">
+                        Рассчитать план 📲
+                    </button>
+                    <p id="errorMsg" class="text-red-500 text-sm hidden">Пожалуйста, заполните все поля.</p>
+                </div>
+
+                <div id="resultsPanel" class="hidden bg-gray-900 rounded-lg p-6 border border-gray-700 flex flex-col justify-center animate-fade-in">
+                    <h4 class="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2">Ваш план на день:</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span>🔥 Калории (Дефицит):</span>
+                            <span class="text-xl font-bold text-orange-500" id="resCals">0</span>
+                        </div>
+                        <div class="h-px bg-gray-800"></div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span>🥩 Белки (1.8г/кг):</span>
+                            <span class="font-bold text-white" id="resProtein">0 г</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span>🥑 Жиры (0.8г/кг):</span>
+                            <span class="font-bold text-white" id="resFat">0 г</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span>🍚 Углеводы (Остаток):</span>
+                            <span class="font-bold text-white" id="resCarbs">0 г</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 10: ШАГ 4 - Тренировки (Теория) -->
+        <section id="step4" class="interactive-card bg-gray-800 rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">4 ШАГ - ПЛАН ТРЕНИРОВОК</h2>
+                <span class="text-4xl">🏋️‍♂️</span>
+            </div>
+            <p class="mb-6">Важно комбинировать нагрузки:</p>
+            <div class="grid sm:grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-900/60 p-4 rounded-xl text-center border border-gray-700 hover:border-teal-500 transition-colors">
+                    <div class="text-3xl mb-2">💪</div>
+                    <h4 class="font-bold text-white">Силовые</h4>
+                    <p class="text-xs text-gray-400 mt-1">Сохраняют мышцы</p>
+                </div>
+                <div class="bg-gray-900/60 p-4 rounded-xl text-center border border-gray-700 hover:border-teal-500 transition-colors">
+                    <div class="text-3xl mb-2">🏃</div>
+                    <h4 class="font-bold text-white">Кардио</h4>
+                    <p class="text-xs text-gray-400 mt-1">Сжигает жир</p>
+                </div>
+                <div class="bg-gray-900/60 p-4 rounded-xl text-center border border-gray-700 hover:border-teal-500 transition-colors">
+                    <div class="text-3xl mb-2">🚶</div>
+                    <h4 class="font-bold text-white">Активность</h4>
+                    <p class="text-xs text-gray-400 mt-1">Движение каждый день</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 11: Программа (Интерактивные табы) -->
+        <section class="interactive-card bg-gray-800 rounded-2xl overflow-hidden reveal">
+            <div class="p-4 bg-gray-700/50 border-b border-gray-700">
+                <h3 class="text-xl font-bold text-white text-center">📅 Программа периодизации (4 недели)</h3>
+            </div>
+            
+            <!-- Tabs Headers -->
+            <div class="flex overflow-x-auto border-b border-gray-700">
+                <button onclick="switchTab(1)" id="tab1" class="tab-btn flex-1 py-4 px-6 text-sm font-bold text-orange-500 border-b-2 border-orange-500 whitespace-nowrap bg-gray-800 transition-colors">Неделя 1</button>
+                <button onclick="switchTab(2)" id="tab2" class="tab-btn flex-1 py-4 px-6 text-sm font-bold text-gray-400 border-b-2 border-transparent hover:text-white whitespace-nowrap transition-colors">Неделя 2</button>
+                <button onclick="switchTab(3)" id="tab3" class="tab-btn flex-1 py-4 px-6 text-sm font-bold text-gray-400 border-b-2 border-transparent hover:text-white whitespace-nowrap transition-colors">Неделя 3</button>
+                <button onclick="switchTab(4)" id="tab4" class="tab-btn flex-1 py-4 px-6 text-sm font-bold text-gray-400 border-b-2 border-transparent hover:text-white whitespace-nowrap transition-colors">Неделя 4</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-6 min-h-[200px]">
+                <div id="content1" class="tab-content block animate-fade-in">
+                    <h4 class="text-xl font-bold text-white mb-2">🏋️‍♀️ Кроссфит</h4>
+                    <p class="mb-4">Упражнения с собственным весом или легким оборудованием.</p>
+                    <div class="bg-gray-900/50 p-3 rounded border border-red-500/20 text-sm">
+                        🍽️ <strong>Питание:</strong> Снижаем углеводы для усиления жиросжигания.
+                    </div>
+                </div>
+                <div id="content2" class="tab-content hidden animate-fade-in">
+                    <h4 class="text-xl font-bold text-white mb-2">🏋️‍♂️ Силовые в зале</h4>
+                    <p class="mb-4">Тренажеры и свободные веса. 10 повторений в подходе.</p>
+                    <div class="bg-gray-900/50 p-3 rounded border border-green-500/20 text-sm">
+                        🍽️ <strong>Питание:</strong> +10% калорий за счет углеводов (энергия для силы).
+                    </div>
+                </div>
+                <div id="content3" class="tab-content hidden animate-fade-in">
+                    <h4 class="text-xl font-bold text-white mb-2">🔄 Круговые тренировки</h4>
+                    <p class="mb-4">15-20 повторений, 3-4 круга. Между кругами — 3 мин кардио.</p>
+                    <div class="bg-gray-900/50 p-3 rounded border border-red-500/20 text-sm">
+                        🍽️ <strong>Питание:</strong> Снижаем калорийность на 10% (углеводы).
+                    </div>
+                </div>
+                <div id="content4" class="tab-content hidden animate-fade-in">
+                    <h4 class="text-xl font-bold text-white mb-2">🐢 Статодинамика</h4>
+                    <p class="mb-4">Вес 40-50%, очень медленный темп (40-50 сек под нагрузкой). + Интервальное кардио.</p>
+                    <div class="bg-gray-900/50 p-3 rounded border border-green-500/20 text-sm">
+                        🍽️ <strong>Питание:</strong> +10% калорий (поддержка организма).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 12: ШАГ 5 - Практика -->
+        <section id="step5" class="interactive-card bg-gray-800 rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">5 ШАГ - СХЕМА В ДЕЙСТВИИ</h2>
+                <span class="text-4xl">🎬</span>
+            </div>
+            <p class="mb-4">Возьмем для примера первую неделю: <strong>КРОССФИТ</strong>.</p>
+            
+            <div class="bg-gray-900/60 p-5 rounded-xl mb-6 border-l-4 border-orange-500">
+                <h4 class="font-bold text-white mb-2">💊 Добавки перед тренировкой (для жиросжигания):</h4>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li>Йохимбин: 0.2 мг на кг</li>
+                    <li>Кофеин: 100-200 мг</li>
+                    <li>Л-тирозин: 1-3 гр</li>
+                </ul>
+            </div>
+
+            <!-- Видео (Wistia Player) -->
+            <div class="rounded-xl overflow-hidden border border-gray-700 mb-2 shadow-xl relative aspect-video">
+                <!-- Замена скриптового плеера на безопасный Iframe, чтобы избежать ошибок CORS/Fetch -->
+                <iframe src="https://fast.wistia.net/embed/iframe/f8ttwklhpg" title="Video" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" msallowfullscreen width="100%" height="100%" style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+            </div>
+
+            <a href="https://vkvideo.ru/video391429675_456239157" class="block text-center text-orange-500 text-sm font-bold hover:underline mb-6">Смотреть ВКонтакте (резервная ссылка)</a>
+
+            <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-700">
+                <p class="text-white font-bold mb-2">Рельеф и мышцы</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs">☑️ Птица</span>
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs">☑️ Рыба</span>
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs">☑️ Яйца</span>
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs">☑️ Творог</span>
+                    <span class="px-3 py-1 bg-gray-700 rounded-full text-xs">☑️ Протеин</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК 13: Переход к продаже -->
+        <section class="py-10 text-center space-y-4 reveal">
+            <h2 class="text-3xl font-bold text-white">ЧТО ДЕЛАТЬ ДАЛЕЕ?</h2>
+            <p class="text-gray-300">
+                Я бесплатно отдал тебе рабочую информацию. Но сможешь ли ты все внедрить сам без ошибок?
+            </p>
+            <div class="inline-block text-left interactive-card bg-gray-800 p-6 rounded-2xl border border-gray-700 max-w-lg">
+                <p class="font-bold text-white mb-2">Всегда нужен человек, который:</p>
+                <ul class="space-y-2">
+                    <li>✅ Покажет, ЧТО и КАК нужно сделать конкретно тебе</li>
+                    <li>✅ В нужный момент даст ПИНОК</li>
+                    <li>✅ Убережет от ошибок</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ПРОДАЮЩАЯ ЧАСТЬ -->
+    <section class="bg-gray-800 border-t border-gray-700 py-16">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- БЛОК 14: Оффер -->
+            <div class="text-center mb-12 reveal">
+                <span class="text-orange-500 font-bold tracking-widest uppercase text-sm">Тест-драйв системы</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6">
+                    7-дневный практикум<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">«МЕТАБОЛИЧЕСКИЙ ЗАПУСК»</span>
+                </h2>
+                <p class="text-xl max-w-2xl mx-auto">
+                    Это не марафон, это «ремонт» твоего организма. Устраним причину жира на уровне гормонов.
+                </p>
+            </div>
+
+            <!-- БЛОК 15: Преимущества (Сетка) -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="interactive-card p-6 rounded-2xl bg-gray-900 flex gap-4 reveal">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-2xl">📱</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">Управление Инсулином</h4>
+                        <p class="text-sm mt-1">Меню, на котором сытно ешь, но жир горит. Приложение само считает КБЖУ.</p>
+                    </div>
+                </div>
+                <div class="interactive-card p-6 rounded-2xl bg-gray-900 flex gap-4 reveal">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-2xl">⚡</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">Гормональные тренировки</h4>
+                        <p class="text-sm mt-1">Короткие комплексы (20 минут), чтобы поднять тестостерон.</p>
+                    </div>
+                </div>
+                <div class="interactive-card p-6 rounded-2xl bg-gray-900 flex gap-4 reveal">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-2xl">🧠</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">Снятие «ручника»</h4>
+                        <p class="text-sm mt-1">Разберемся с кортизолом, сном и «рептильным мозгом».</p>
+                    </div>
+                </div>
+                <div class="interactive-card p-6 rounded-2xl bg-gray-900 flex gap-4 reveal">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-2xl">🔍</div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">Диагностика</h4>
+                        <p class="text-sm mt-1">Поймешь, что именно «сломалось» в твоем обмене веществ.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal bg-teal-900/30 border border-teal-500/50 p-6 rounded-xl text-center mb-16">
+                <p class="text-white font-medium text-lg">
+                    🚀 За 7 дней ты не просто «попробуешь», а запустишь процесс жиросжигания и увидишь, как сдувается «твердый» живот.
+                </p>
+            </div>
+
+            <!-- БЛОК 16: Footer CTA -->
+            <div class="interactive-card bg-gray-900 rounded-2xl p-8 md:p-12 text-center border border-gray-700 relative overflow-hidden reveal">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 to-red-600"></div>
+                
+                <h3 class="text-2xl font-bold text-white mb-6">Смотри приглашение ⬇️</h3>
+                
+                <!-- Видео (Wistia Player 2) -->
+                <div class="rounded-xl overflow-hidden border border-gray-700 mb-8 shadow-xl relative aspect-video max-w-2xl mx-auto">
+                    <!-- Замена скриптового плеера на безопасный Iframe, чтобы избежать ошибок CORS/Fetch -->
+                    <iframe src="https://fast.wistia.net/embed/iframe/iu29d1mcpd" title="Video" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" msallowfullscreen width="100%" height="100%" style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+                </div>
+
+                <p class="text-xl text-white font-bold mb-6">Готов начать? Тогда поехали! 💪</p>
+                
+                <a href="https://dgmuk.github.io/pagepr/" class="inline-block w-full md:w-auto px-10 py-5 bg-orange-500 hover:bg-orange-600 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-orange-500/20 transition-all transform hover:-translate-y-1 animate-pulse">
+                    Записаться на практикум ✨
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 py-8 text-center text-sm text-gray-500 border-t border-gray-800">
+        <p>© 2026 Body Balance System. Все права защищены.</p>
+    </footer>
+
+    <!-- Скрипты -->
+    <script>
+        // --- Калькулятор КБЖУ ---
+        function calculateMacros() {
+            const weight = parseFloat(document.getElementById('calcWeight').value);
+            const maintenance = parseFloat(document.getElementById('calcMaintenance').value);
+            const errorMsg = document.getElementById('errorMsg');
+            const resultsPanel = document.getElementById('resultsPanel');
+
+            if (!weight || !maintenance) {
+                errorMsg.classList.remove('hidden');
+                resultsPanel.classList.add('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            resultsPanel.classList.remove('hidden');
+
+            // 1. Дефицит (20%)
+            const deficitCals = Math.round(maintenance * 0.8);
+
+            // 2. Белки (Вес * 1.8)
+            const proteinG = Math.round(weight * 1.8);
+            const proteinCals = proteinG * 4;
+
+            // 3. Жиры (Вес * 0.8)
+            const fatG = Math.round(weight * 0.8);
+            const fatCals = fatG * 9;
+
+            // 4. Углеводы (Остаток / 4)
+            const remainingCals = deficitCals - (proteinCals + fatCals);
+            const carbsG = Math.max(0, Math.round(remainingCals / 4));
+
+            // Анимация чисел
+            document.getElementById('resCals').textContent = deficitCals + ' ккал';
+            document.getElementById('resProtein').textContent = proteinG + ' г';
+            document.getElementById('resFat').textContent = fatG + ' г';
+            document.getElementById('resCarbs').textContent = carbsG + ' г';
+        }
+
+        // --- Табы ---
+        function switchTab(tabIndex) {
+            // Reset headers
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-orange-500', 'border-orange-500', 'bg-gray-800');
+                btn.classList.add('text-gray-400', 'border-transparent');
             });
 
-            const hasRedFlag = Object.values(checks).some(Boolean);
+            // Activate current header
+            const activeBtn = document.getElementById(`tab${tabIndex}`);
+            activeBtn.classList.remove('text-gray-400', 'border-transparent');
+            activeBtn.classList.add('text-orange-500', 'border-orange-500', 'bg-gray-800');
 
-            return (
-                <div className="animate-fade-in max-w-2xl mx-auto">
-                    <h2 className="text-2xl font-bold mb-6 text-white">Скрининг безопасности</h2>
-                    <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 mb-8">
-                        <p className="text-gray-400 mb-6">Отметьте, если у клиента наблюдается что-либо из перечисленного:</p>
-                        <div className="space-y-4">
-                            {[
-                                { id: 'pain', label: 'Острая боль при движении' },
-                                { id: 'trauma', label: 'Недавние травмы или операции (< 6 мес)' },
-                                { id: 'numbness', label: 'Онемение конечностей или потеря чувствительности' }
-                            ].map(item => (
-                                <label key={item.id} className="flex items-center space-x-4 p-4 rounded-lg bg-gray-900/50 cursor-pointer hover:bg-gray-900 transition-colors border border-transparent hover:border-gray-600">
-                                    <div className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${checks[item.id] ? 'bg-red-500 border-red-500' : 'border-gray-600'}`}>
-                                        {checks[item.id] && <i className="fa-solid fa-check text-white text-sm"></i>}
-                                    </div>
-                                    <input
-                                        type="checkbox"
-                                        className="hidden"
-                                        checked={checks[item.id]}
-                                        onChange={() => setChecks(prev => ({ ...prev, [item.id]: !prev[item.id] }))}
-                                    />
-                                    <span className="text-gray-200">{item.label}</span>
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-
-                    {hasRedFlag ? (
-                        <div className="bg-red-500/10 border border-red-500/50 p-6 rounded-xl text-center animate-slide-up">
-                            <i className="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-4"></i>
-                            <h3 className="text-xl font-bold text-red-500 mb-2">Внимание!</h3>
-                            <p className="text-red-200">Наличие данных симптомов является противопоказанием к тренировкам. Рекомендуется направить клиента к врачу.</p>
-                        </div>
-                    ) : (
-                        <button
-                            onClick={onNext}
-                            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 transition-all transform hover:translate-y-[-2px]"
-                        >
-                            Противопоказаний нет, продолжить
-                        </button>
-                    )}
-                </div>
-            );
-        };
-
-        const StepStatic = ({ data, updateData }) => {
-            const [infoModal, setInfoModal] = useState(null);
-
-            const groups = [
-                {
-                    title: "Голова и Плечи",
-                    items: [
-                        {
-                            id: 'forward_head',
-                            label: 'Голова выдвинута вперед',
-                            howTo: 'Попросите клиента встать боком к вам в привычной, расслабленной позе. Представьте вертикальную линию, проходящую через плечевой сустав.',
-                            whatToLookFor: 'Мочка уха находится спереди от этой линии. Шея визуально наклонена вперед.'
-                        },
-                        {
-                            id: 'rounded_shoulders',
-                            label: 'Округлые плечи',
-                            howTo: 'Оцените положение плеч сбоку и положение кистей рук в расслабленном состоянии.',
-                            whatToLookFor: 'Плечевой сустав смещен вперед относительно середины грудной клетки. Ладони развернуты назад (тыльной стороной вперед), а не к телу.'
-                        }
-                    ]
-                },
-                {
-                    title: "Таз и Позвоночник",
-                    items: [
-                        {
-                            id: 'hyperlordosis',
-                            label: 'Гиперлордоз (Передний наклон таза)',
-                            howTo: 'Посмотрите на поясничный изгиб сбоку. Оцените наклон таза.',
-                            whatToLookFor: 'Чрезмерный прогиб в пояснице. Живот выпячивается вперед, ягодицы отклянчены назад (передний наклон таза).'
-                        },
-                        {
-                            id: 'flat_back',
-                            label: 'Плоская спина (Задний наклон таза)',
-                            howTo: 'Оцените поясничный изгиб сбоку.',
-                            whatToLookFor: 'Поясница выглядит плоской, естественный прогиб отсутствует. Таз подкручен под себя (задний наклон).'
-                        }
-                    ]
-                },
-                {
-                    title: "Нижние конечности",
-                    items: [
-                        {
-                            id: 'knee_valgus_static',
-                            label: 'Вальгус коленей (X-образные)',
-                            howTo: 'Попросите клиента встать прямо, стопы вместе или на ширине таза. Посмотрите спереди.',
-                            whatToLookFor: 'Колени соприкасаются или стремятся друг к другу, образуя "X"-образную форму ног.'
-                        },
-                        {
-                            id: 'flat_feet',
-                            label: 'Плоскостопие / Пронация',
-                            howTo: 'Посмотрите на стопы сзади и с внутренней стороны.',
-                            whatToLookFor: 'Внутренний свод стопы опущен (касается пола). Ахиллово сухожилие искривлено внутрь.'
-                        }
-                    ]
-                }
-            ];
-
-            return (
-                <div className="animate-fade-in">
-                    <h2 className="text-2xl font-bold mb-6 text-white">Статическая оценка</h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {groups.map((group, idx) => (
-                            <CheckboxGroup
-                                key={idx}
-                                title={group.title}
-                                items={group.items}
-                                values={data}
-                                onChange={(id) => updateData(id, !data[id])}
-                                onInfoClick={setInfoModal}
-                            />
-                        ))}
-                    </div>
-
-                    <Modal isOpen={!!infoModal} onClose={() => setInfoModal(null)} title={infoModal?.label}>
-                        <TestInfoContent
-                            howTo={infoModal?.howTo}
-                            whatToLookFor={infoModal?.whatToLookFor}
-                            onClose={() => setInfoModal(null)}
-                        />
-                    </Modal>
-                </div>
-            );
-        };
-
-        const StepDynamic = ({ data, updateData }) => {
-            const [infoModal, setInfoModal] = useState(null);
-
-            const groups = [
-                {
-                    title: "Вид Спереди",
-                    items: [
-                        {
-                            id: 'feet_turn_out',
-                            label: 'Стопы разворачиваются наружу',
-                            howTo: 'Клиент выполняет приседание с руками над головой. Смотрите на стопы спереди.',
-                            whatToLookFor: 'Во время движения носки стоп разворачиваются наружу.'
-                        },
-                        {
-                            id: 'knees_cave_in',
-                            label: 'Колени сводятся внутрь (Вальгус)',
-                            howTo: 'Смотрите на колени спереди во время приседания.',
-                            whatToLookFor: 'Колени смещаются внутрь (к центру), выходя за линию второго пальца стопы.'
-                        }
-                    ]
-                },
-                {
-                    title: "Вид Сбоку",
-                    items: [
-                        {
-                            id: 'excessive_lean',
-                            label: 'Избыточный наклон вперед',
-                            howTo: 'Смотрите сбоку. Оцените параллельность линий голени и туловища.',
-                            whatToLookFor: 'Туловище наклоняется вперед чрезмерно, линии голени и корпуса не параллельны.'
-                        },
-                        {
-                            id: 'low_back_arch',
-                            label: 'Прогиб в пояснице',
-                            howTo: 'Смотрите на поясницу сбоку в нижней точке приседа.',
-                            whatToLookFor: 'Поясница чрезмерно прогибается (гиперэкстензия), таз уходит в передний наклон.'
-                        },
-                        {
-                            id: 'arms_fall',
-                            label: 'Руки падают вперед',
-                            howTo: 'Смотрите сбоку на положение рук относительно туловища.',
-                            whatToLookFor: 'Руки опускаются вперед и не составляют одну линию с туловищем/ушами.'
-                        }
-                    ]
-                },
-                {
-                    title: "Вид Сзади",
-                    items: [
-                        {
-                            id: 'heels_rise',
-                            label: 'Пятки отрываются от пола',
-                            howTo: 'Смотрите на пятки сзади или сбоку.',
-                            whatToLookFor: 'Пятки отрываются от пола в нижней фазе движения.'
-                        },
-                        {
-                            id: 'asym_shift',
-                            label: 'Асимметричное смещение таза',
-                            howTo: 'Смотрите сзади на таз во время приседания.',
-                            whatToLookFor: 'Таз смещается вправо или влево, вес переносится на одну ногу больше.'
-                        }
-                    ]
-                }
-            ];
-
-            return (
-                <div className="animate-fade-in">
-                    <h2 className="text-2xl font-bold mb-2 text-white">Динамическая оценка</h2>
-                    <p className="text-gray-400 mb-6">Тест: Приседания с руками над головой (OHSA)</p>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {groups.map((group, idx) => (
-                            <CheckboxGroup
-                                key={idx}
-                                title={group.title}
-                                items={group.items}
-                                values={data}
-                                onChange={(id) => updateData(id, !data[id])}
-                                onInfoClick={setInfoModal}
-                            />
-                        ))}
-                    </div>
-
-                    <Modal isOpen={!!infoModal} onClose={() => setInfoModal(null)} title={infoModal?.label}>
-                        <TestInfoContent
-                            howTo={infoModal?.howTo}
-                            whatToLookFor={infoModal?.whatToLookFor}
-                            onClose={() => setInfoModal(null)}
-                        />
-                    </Modal>
-                </div>
-            );
-        };
-
-        const StepMobility = ({ data, updateData }) => {
-            const [infoModal, setInfoModal] = useState(null);
-
-            const groups = [
-                {
-                    title: "Шея и Плечи",
-                    items: [
-                        {
-                            id: 'neck_restrict',
-                            label: 'Ограничение сгибания шеи (<45°)',
-                            howTo: 'Попросите клиента наклонить подбородок к груди, закрыв рот.',
-                            whatToLookFor: 'Подбородок не касается грудины. Ощущается натяжение или боль в задней части шеи.'
-                        },
-                        {
-                            id: 'apley_fail',
-                            label: 'Тест Эпли (Замок) - Неудача',
-                            howTo: 'Клиент пытается соединить руки за спиной (одна сверху, другая снизу).',
-                            whatToLookFor: 'Пальцы не соприкасаются. Разница между правой и левой стороной существенна.'
-                        }
-                    ]
-                },
-                {
-                    title: "Тазобедренный сустав (Тест Томаса)",
-                    items: [
-                        {
-                            id: 'thomas_hip_flexor',
-                            label: 'Бедро приподнято (Psoas)',
-                            howTo: 'Клиент лежит на краю кушетки, подтягивает одно колено к груди, вторая нога свисает.',
-                            whatToLookFor: 'Бедро свисающей ноги поднимается выше горизонтали (не касается поверхности).'
-                        },
-                        {
-                            id: 'thomas_rectus',
-                            label: 'Колено разогнуто (Rectus Femoris)',
-                            howTo: 'В том же положении (тест Томаса) оцените положение голени.',
-                            whatToLookFor: 'Голень не свисает вертикально (угол в колене больше 90 градусов, нога выпрямляется).'
-                        },
-                        {
-                            id: 'thomas_tfl',
-                            label: 'Бедро отводится (TFL)',
-                            howTo: 'В том же положении посмотрите, не уходит ли нога в сторону.',
-                            whatToLookFor: 'Бедро отклоняется наружу (абдукция).'
-                        }
-                    ]
-                },
-                {
-                    title: "Голеностоп и Бедро",
-                    items: [
-                        {
-                            id: 'knee_wall_fail',
-                            label: 'Тест колено-стена (<10см)',
-                            howTo: 'Клиент стоит лицом к стене, стопа на расстоянии 10-12 см. Пытается коснуться стены коленом, не отрывая пятку.',
-                            whatToLookFor: 'Колено не достает до стены или пятка отрывается от пола.'
-                        },
-                        {
-                            id: 'aslr_fail',
-                            label: 'Активный подъем ноги (<80°)',
-                            howTo: 'Клиент лежит на спине. Поднимает одну прямую ногу вверх.',
-                            whatToLookFor: 'Угол подъема ноги меньше 80 градусов (лодыжка не проходит линию середины бедра второй ноги).'
-                        }
-                    ]
-                }
-            ];
-
-            return (
-                <div className="animate-fade-in">
-                    <h2 className="text-2xl font-bold mb-6 text-white">Мобильность и Спец. тесты</h2>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {groups.map((group, idx) => (
-                            <CheckboxGroup
-                                key={idx}
-                                title={group.title}
-                                items={group.items}
-                                values={data}
-                                onChange={(id) => updateData(id, !data[id])}
-                                onInfoClick={setInfoModal}
-                            />
-                        ))}
-                    </div>
-
-                    <Modal isOpen={!!infoModal} onClose={() => setInfoModal(null)} title={infoModal?.label}>
-                        <TestInfoContent
-                            howTo={infoModal?.howTo}
-                            whatToLookFor={infoModal?.whatToLookFor}
-                            onClose={() => setInfoModal(null)}
-                        />
-                    </Modal>
-                </div>
-            );
-        };
-
-        // --- REPORT & LOGIC ---
-
-        const calculateSyndromes = (data) => {
-            const syndromes = [];
-
-            // 1. Upper Crossed Syndrome
-            const ucsTriggers = ['forward_head', 'rounded_shoulders', 'arms_fall', 'neck_restrict', 'apley_fail'];
-            const ucsCount = ucsTriggers.filter(t => data[t]).length;
-            if (ucsCount >= 2) {
-                syndromes.push({
-                    id: 'ucs',
-                    name: 'Верхний перекрестный синдром',
-                    desc: 'Дисбаланс мышц плечевого пояса и шеи.',
-                    exercises: {
-                        inhibit: ['smr_upper_trap', 'smr_pecs', 'smr_lats'],
-                        lengthen: ['stretch_neck_side', 'stretch_doorway_pec', 'stretch_lats'],
-                        activate: ['act_chin_tuck', 'act_ytw'],
-                        integrate: ['int_single_arm_row']
-                    }
-                });
-            }
-
-            // 2. Lower Crossed Syndrome
-            const lcsTriggers = ['hyperlordosis', 'excessive_lean', 'low_back_arch', 'thomas_hip_flexor', 'thomas_rectus'];
-            const lcsCount = lcsTriggers.filter(t => data[t]).length;
-            if (lcsCount >= 2) {
-                syndromes.push({
-                    id: 'lcs',
-                    name: 'Нижний перекрестный синдром',
-                    desc: 'Дисбаланс мышц таза и поясницы.',
-                    exercises: {
-                        inhibit: ['smr_psoas', 'smr_quads', 'smr_tfl', 'smr_adductors'],
-                        lengthen: ['stretch_hip_flexor', 'stretch_quad_stand', 'stretch_adductor_stand'],
-                        activate: ['act_glute_bridge', 'act_plank_rkc'],
-                        integrate: ['int_squat_row', 'int_lunge_rot']
-                    }
-                });
-            }
-
-            // 3. Pronation Distortion Syndrome
-            const pdsTriggers = ['knee_valgus_static', 'flat_feet', 'feet_turn_out', 'knees_cave_in', 'heels_rise', 'knee_wall_fail', 'thomas_tfl'];
-            const pdsCount = pdsTriggers.filter(t => data[t]).length;
-            if (pdsCount >= 2) {
-                syndromes.push({
-                    id: 'pds',
-                    name: 'Синдром пронационных искажений',
-                    desc: 'Нарушение биомеханики стоп и коленей.',
-                    exercises: {
-                        inhibit: ['smr_calves', 'smr_tfl', 'smr_adductors'],
-                        lengthen: ['stretch_calf_wall', 'stretch_adductor_stand'],
-                        activate: ['act_clamshell', 'act_tibialis', 'act_glute_bridge'],
-                        integrate: ['int_single_leg_balance', 'int_multi_lunge']
-                    }
-                });
-            }
-
-            return syndromes;
-        };
-
-        const ExerciseCard = ({ exId, onClick }) => {
-            const ex = exerciseLibrary[exId];
-            if (!ex) return null;
-            return (
-                <div
-                    onClick={() => onClick(ex)}
-                    className="bg-gray-800 p-4 rounded-lg border border-gray-700 hover:border-orange-500 cursor-pointer transition-all hover:shadow-lg hover:shadow-orange-500/10 group h-full flex flex-col"
-                >
-                    <h5 className="font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{ex.name}</h5>
-                    <p className="text-sm text-gray-400 line-clamp-2 flex-grow">{ex.desc}</p>
-                    <div className="mt-3 text-xs text-orange-500 font-semibold uppercase tracking-wider flex items-center">
-                        Подробнее <i className="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
-            );
-        };
-
-        const ReportView = ({ data }) => {
-            const [selectedEx, setSelectedEx] = useState(null);
-            const syndromes = useMemo(() => calculateSyndromes(data), [data]);
-            const hasIssues = syndromes.length > 0;
-
-            // Merge exercises from all syndromes for the grid
-            const plan = {
-                inhibit: new Set(),
-                lengthen: new Set(),
-                activate: new Set(),
-                integrate: new Set()
-            };
-
-            syndromes.forEach(syn => {
-                syn.exercises.inhibit.forEach(id => plan.inhibit.add(id));
-                syn.exercises.lengthen.forEach(id => plan.lengthen.add(id));
-                syn.exercises.activate.forEach(id => plan.activate.add(id));
-                syn.exercises.integrate.forEach(id => plan.integrate.add(id));
+            // Hide all content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
             });
 
-            const phases = [
-                { id: 'inhibit', title: '1. Ингибиция (МФР)', icon: 'fa-solid fa-compress', desc: 'Снятие напряжения с гиперактивных мышц' },
-                { id: 'lengthen', title: '2. Удлинение (Растяжка)', icon: 'fa-solid fa-up-right-and-down-left-from-center', desc: 'Восстановление длины укороченных мышц' },
-                { id: 'activate', title: '3. Активация', icon: 'fa-solid fa-bolt', desc: 'Включение ослабленных мышц' },
-                { id: 'integrate', title: '4. Интеграция', icon: 'fa-solid fa-person-running', desc: 'Обучение правильному движению' }
-            ];
+            // Show current content
+            document.getElementById(`content${tabIndex}`).classList.remove('hidden');
+        }
 
-            return (
-                <div className="animate-fade-in pb-20">
-                    <div className="flex justify-between items-end mb-8 no-print">
-                        <div>
-                            <h2 className="text-3xl font-bold text-white mb-2">Результаты диагностики</h2>
-                            <p className="text-gray-400">Персонализированная стратегия коррекции</p>
-                        </div>
-                        <button
-                            onClick={() => window.print()}
-                            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors flex items-center"
-                        >
-                            <i className="fa-solid fa-print mr-2"></i> Сохранить PDF
-                        </button>
-                    </div>
+        // --- Слайдер кейсов ---
+        function scrollCases(direction) {
+            const slider = document.getElementById('casesSlider');
+            const scrollAmount = 300; // ширина карточки + отступ
+            slider.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
 
-                    {/* Print Header */}
-                    <div className="hidden print-only mb-8 border-b border-gray-300 pb-4">
-                        <h1 className="text-2xl font-bold text-black">ODA PRO: Отчет о диагностике</h1>
-                        <p className="text-gray-600">Дата: {new Date().toLocaleDateString()}</p>
-                    </div>
+        // --- Анимация при скролле (Intersection Observer) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
 
-                    {!hasIssues ? (
-                        <div className="bg-green-500/10 border border-green-500/50 p-8 rounded-xl text-center mb-10">
-                            <i className="fa-solid fa-medal text-5xl text-green-500 mb-4"></i>
-                            <h3 className="text-2xl font-bold text-green-500 mb-2">Отличный результат!</h3>
-                            <p className="text-green-100">Значимых биомеханических нарушений не выявлено. Рекомендуется общая программа физической подготовки.</p>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                                {syndromes.map(syn => (
-                                    <div key={syn.id} className="bg-gray-800 p-6 rounded-xl border-l-4 border-orange-500 shadow-lg card">
-                                        <h3 className="text-xl font-bold text-white mb-2">{syn.name}</h3>
-                                        <p className="text-gray-400 text-sm">{syn.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 150;
 
-                            <div className="space-y-10">
-                                {phases.map(phase => {
-                                    const exIds = Array.from(plan[phase.id]);
-                                    if (exIds.length === 0) return null;
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            }
 
-                                    return (
-                                        <div key={phase.id} className="card">
-                                            <div className="flex items-center mb-6 border-b border-gray-700 pb-2">
-                                                <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center mr-4 text-white">
-                                                    <i className={phase.icon}></i>
-                                                </div>
-                                                <div>
-                                                    <h3 className="text-xl font-bold text-white">{phase.title}</h3>
-                                                    <p className="text-sm text-gray-500">{phase.desc}</p>
-                                                </div>
-                                            </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                                {exIds.map(id => (
-                                                    <ExerciseCard key={id} exId={id} onClick={setSelectedEx} />
-                                                ))}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </>
-                    )}
-
-                    <Modal isOpen={!!selectedEx} onClose={() => setSelectedEx(null)} title={selectedEx?.name}>
-                        <div className="space-y-6">
-                            <p className="text-gray-300 text-lg leading-relaxed">{selectedEx?.desc}</p>
-
-                            <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700">
-                                <h4 className="text-orange-500 font-bold mb-4 uppercase text-sm tracking-wider">Техника выполнения</h4>
-                                <ol className="space-y-4">
-                                    {selectedEx?.steps.map((step, idx) => (
-                                        <li key={idx} className="flex">
-                                            <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 border border-gray-600 flex items-center justify-center text-orange-500 font-bold text-sm mr-4">
-                                                {idx + 1}
-                                            </span>
-                                            <span className="text-gray-200 mt-1">{step}</span>
-                                        </li>
-                                    ))}
-                                </ol>
-                            </div>
-                        </div>
-                    </Modal>
-
-                    <footer className="mt-20 text-center text-gray-600 text-sm print-only">
-                        <p>Сгенерировано системой ODA PRO Body Balance</p>
-                    </footer>
-                </div>
-            );
-        };
-
-        // --- APP SHELL ---
-
-        const App = () => {
-            const [step, setStep] = useState(0);
-            const [data, setData] = useState({});
-
-            const updateData = (key, value) => {
-                setData(prev => ({ ...prev, [key]: value }));
-            };
-
-            const nextStep = () => setStep(s => s + 1);
-            const prevStep = () => setStep(s => s - 1);
-
-            const steps = [
-                { id: 'intro', component: <StepIntro onStart={nextStep} /> },
-                { id: 'safety', component: <StepSafety onNext={nextStep} /> },
-                { id: 'static', title: 'Шаг 1: Статика', component: <StepStatic data={data} updateData={updateData} /> },
-                { id: 'dynamic', title: 'Шаг 2: Динамика', component: <StepDynamic data={data} updateData={updateData} /> },
-                { id: 'mobility', title: 'Шаг 3: Мобильность', component: <StepMobility data={data} updateData={updateData} /> },
-                { id: 'report', title: 'Отчет', component: <ReportView data={data} /> }
-            ];
-
-            const currentStepObj = steps[step];
-            const isWizard = step > 1 && step < steps.length - 1;
-
-            return (
-                <div className="container mx-auto px-4 py-8 min-h-screen flex flex-col">
-                    {/* Header / Progress */}
-                    {step > 0 && (
-                        <div className="mb-8 no-print">
-                            <div className="flex justify-between items-center mb-4">
-                                <button
-                                    onClick={prevStep}
-                                    className="text-gray-400 hover:text-white transition-colors flex items-center"
-                                >
-                                    <i className="fa-solid fa-arrow-left mr-2"></i> Назад
-                                </button>
-                                {isWizard && (
-                                    <span className="text-gray-500 font-mono text-sm">
-                                        {step - 1} / 3
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* Progress Bar */}
-                            {isWizard && (
-                                <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full bg-orange-500 transition-all duration-500 ease-out"
-                                        style={{ width: `${((step - 1) / 3) * 100}%` }}
-                                    ></div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Main Content */}
-                    <main className="flex-grow">
-                        {currentStepObj.component}
-                    </main>
-
-                    {/* Wizard Navigation */}
-                    {isWizard && (
-                        <div className="mt-8 flex justify-end no-print">
-                            <button
-                                onClick={nextStep}
-                                className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-orange-500/20 transition-all flex items-center"
-                            >
-                                Далее <i className="fa-solid fa-arrow-right ml-2"></i>
-                            </button>
-                        </div>
-                    )}
-
-                    {/* Footer */}
-                    <footer className="mt-12 py-6 border-t border-gray-800 text-center text-gray-600 text-sm no-print">
-                        <p>ODA PRO: Body Balance System &copy; 2025</p>
-                    </footer>
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+            window.addEventListener('scroll', revealOnScroll);
+            // Trigger once on load
+            revealOnScroll();
+        });
     </script>
 </body>
-
 </html>
