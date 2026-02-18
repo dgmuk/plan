@@ -53,6 +53,9 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                    },
+                    screens: {
+                        'xs': '400px',
                     }
                 }
             }
@@ -291,34 +294,15 @@
             }
         }
 
-        /* ===== ВОЛНОВОЙ РАЗДЕЛИТЕЛЬ ===== */
-        .section-divider {
-            position: relative;
-            height: 80px;
-            overflow: hidden;
-        }
-
-        @keyframes waveMotion {
-
-            0%,
-            100% {
-                transform: translateY(0) scaleY(1);
-            }
-
-            50% {
-                transform: translateY(8px) scaleY(1.08);
-            }
-        }
-
-        .section-divider svg {
-            position: absolute;
-            bottom: -1px;
-            /* Чуть прижмем вниз, чтобы убрать возможные щели */
+        /* ===== НЕОНОВЫЙ РАЗДЕЛИТЕЛЬ ===== */
+        .neon-line {
+            height: 1px;
             width: 100%;
-            height: 80px;
-            animation: waveMotion 8s ease-in-out infinite;
-            transform-origin: bottom;
-            filter: drop-shadow(0 -5px 10px rgba(0, 0, 0, 0.1));
+            background: linear-gradient(90deg, transparent, #14B8A6, transparent);
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+            margin: 0;
+            position: relative;
+            z-index: 10;
         }
 
         /* ===== DOTS ПАГИНАЦИЯ СЛАЙДЕРА ===== */
@@ -445,12 +429,18 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #F97316, #EF4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        @media (min-width: 640px) {
+            .stat-number {
+                font-size: 2.5rem;
+            }
         }
 
         /* ===== БЕГУЩАЯ СТРОКА ===== */
@@ -502,11 +492,11 @@
 
     <!-- STICKY НАВИГАЦИЯ -->
     <nav id="stickyNav">
-        <div class="max-w-4xl mx-auto px-4 py-2 flex items-center justify-between">
-            <a href="#" class="text-white font-bold text-sm flex items-center gap-2">
-                <span class="text-lg">🔥</span> Body Balance
+        <div class="max-w-4xl mx-auto px-4 py-2 flex items-center justify-between gap-2">
+            <a href="#" class="text-white font-bold text-xs sm:text-sm flex items-center gap-1 sm:gap-2 shrink-0">
+                <span class="text-base sm:text-lg">🔥</span> <span class="hidden xs:inline">Body</span> Balance
             </a>
-            <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+            <div class="flex items-center gap-1 overflow-x-auto scrollbar-hide no-scrollbar">
                 <a href="#step1" class="nav-link" data-section="step1">Цель</a>
                 <a href="#step2" class="nav-link" data-section="step2">Замеры</a>
                 <a href="#step3" class="nav-link" data-section="step3">Питание</a>
@@ -552,12 +542,8 @@
         </div>
     </header>
 
-    <!-- Разделитель: Hero → Контент -->
-    <div class="section-divider" style="background: #1F2937;">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="#111827">
-            <path d="M0,20 C240,60 480,0 720,40 C960,80 1200,20 1440,50 L1440,80 L0,80 Z"></path>
-        </svg>
-    </div>
+    <!-- Разделитель: Hero → Контент (Неоновая линия) -->
+    <div class="neon-line"></div>
 
     <main class="max-w-3xl mx-auto px-4 py-10 space-y-12">
 
@@ -740,7 +726,7 @@
 
         <!-- БЛОК: Социальное доказательство (Статистика) -->
         <section class="reveal">
-            <div class="grid grid-cols-3 gap-3 sm:gap-6 mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-4">
                 <div class="stat-card">
                     <div class="stat-number" data-target="50" data-suffix="+">0</div>
                     <p class="text-xs sm:text-sm text-gray-400 mt-1">клиентов</p>
@@ -1163,11 +1149,9 @@
 
     </main>
 
-    <!-- Разделитель: Контент → Продающая часть -->
-    <div class="section-divider">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="#1F2937">
-            <path d="M0,20 C240,60 480,0 720,40 C960,80 1200,20 1440,50 L1440,80 L0,80 Z"></path>
-        </svg>
+    <!-- Разделитель: Контент → Продающая часть (Неоновая линия) -->
+    <div class="neon-line text-orange-500"
+        style="background: linear-gradient(90deg, transparent, #F97316, transparent); box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);">
     </div>
 
     <!-- ПРОДАЮЩАЯ ЧАСТЬ -->
