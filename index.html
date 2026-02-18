@@ -1555,7 +1555,20 @@
                 });
                 navLinks.forEach(link => {
                     if (link.dataset.section === currentSection) {
-                        link.classList.add('active');
+                        if (!link.classList.contains('active')) {
+                            link.classList.add('active');
+                            // Центрируем активную ссылку в скролл-контейнере
+                            const container = link.parentElement;
+                            if (container) {
+                                const linkOffset = link.offsetLeft;
+                                const linkWidth = link.offsetWidth;
+                                const containerWidth = container.offsetWidth;
+                                container.scrollTo({
+                                    left: linkOffset - (containerWidth / 2) + (linkWidth / 2),
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
                     } else {
                         link.classList.remove('active');
                     }
